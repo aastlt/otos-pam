@@ -7,18 +7,30 @@
 
 Порядок выполнения задачи:
 1. Создаю пользователя otusadm и otus:
+
 sudo useradd otusadm && sudo useradd otus
+
 2. Создаю группу admin:
+
 sudo groupadd -f admin
+
 3. Добавляю пользователей vagrant, root и otusadm в группу admin:
+
 usermod otusadm -a -G admin && usermod root -a -G admin && usermod vagrant -a -G admin
+
 4. Проверяю, что пользователи root, vagrant и otusadm есть в группе admin:
 cat /etc/group | grep admin
+
 5. Создадаю скрипт /usr/local/bin/login.sh. В скрипте подписаны все условия. Скрипт работает по принципу: если сегодня суббота или воскресенье, то нужно проверить, входит ли пользователь в группу admin, если не входит — то подключение запрещено. При любых других вариантах подключение разрешено
+
 6. Добавляю права на исполнение файла: chmod +x /usr/local/bin/login.sh
+
 7. Указываю в файле /etc/pam.d/sshd модуль pam_exec и свой скрипт
+
 8. Для теста устанавливаю день недели суббота:
+
 sudo date 082712302022.00
+
 9. Проверяю путем логина за обычного пользователя и пользователя из группы admin
 
 На скрине видно:
